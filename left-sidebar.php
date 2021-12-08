@@ -23,6 +23,11 @@
 								<span class="micon dw dw-pencil"></span><span class="mtext">Kepala Keluarga</span>
 							</a>
 						</li>
+						<li>
+							<a href="barang.php" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-pencil"></span><span class="mtext">Barang</span>
+							</a>
+						</li>
 					<?php elseif ($_SESSION['jabatan'] == 'ketua'): ?>
 						<!-- Ketua RT -->
 						<li>

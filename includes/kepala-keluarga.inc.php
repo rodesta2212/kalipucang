@@ -8,7 +8,7 @@ class KepalaKeluarga {
     public $id_user;
 	public $no_kk;
     public $alamat;
-    public $no_no_telp;
+    public $no_telp;
 	public $email;
 
 	public function __construct($db) {
