@@ -54,36 +54,54 @@
 				<!-- Simple Datatable start -->
 				<div class="card-box mb-30">
 					<div class="pd-20">
-						<h4 class="text-blue h4"><i class="dw dw-pencil"></i> Data Barang</h4>
+						<h4 class="text-blue h4"><i class="dw dw-box"></i> Data Barang</h4>
 						<!-- <p class="mb-0">you can find more options <a class="text-primary" href="https://datatables.net/" target="_blank">Click Here</a></p> -->
                     </div>
+					<?php if ($_SESSION['jabatan'] == 'sekretaris'): ?>
                     <div style="padding-right:15px;">
                         <!-- <a href="barang-create"> -->
                             <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#createModal">Tambah</button>
                         <!-- </a> -->
                     </div>
+					<?php endif; ?>
                     <div class="pb-20">
 						<table class="data-table table stripe hover nowrap">
 							<thead>
 								<tr class="text-center">
 									<th>Nama Barang</th>
-                                    <th>Stok Barang</th>
+									<?php if ($_SESSION['jabatan'] == 'sekretaris'): ?>
+										<th>Stok Barang</th>
+									<?php endif; ?>
                                     <th>Kategori</th>
-									<th>Tahun Input</th>
+									<?php if ($_SESSION['jabatan'] == 'sekretaris'): ?>
+										<th>Tahun Input</th>
+									<?php endif; ?>
+									<th>Barang Dipinjam</th>
+									<th>Sisa Barang</th>
 									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
-                                <?php $no=1; $barangs = $Barang->readAll(); while ($row = $barangs->fetch(PDO::FETCH_ASSOC)) : ?>
+                                <?php $no=1; $barangs = $Barang->readAllReady(); while ($row = $barangs->fetch(PDO::FETCH_ASSOC)) : ?>
 								<tr class="text-center">
 									<td><?=$row['nama_barang']?></td>
-                                    <td><?=$row['stok_barang']?></td>
+									<?php if ($_SESSION['jabatan'] == 'sekretaris'): ?>
+										<td><?=$row['stok_barang']?></td>
+									<?php endif; ?>
                                     <td><?=$row['kategori']?></td>
-									<td><?=$row['tahun_input']?></td>
+									<?php if ($_SESSION['jabatan'] == 'sekretaris'): ?>
+										<td><?=$row['tahun_input']?></td>
+									<?php endif; ?>
+									<td><?=$row['total_pinjam']?></td>
+									<td><?=$row['sisa_barang']?></td>
 									<td>
-                                        <!-- <a class="dropdown-item link-action" href="barang-detail.php?id=<?php echo $row['id_barang']; ?>"><i class="dw dw-eye"></i> Detail</a> |  -->
-										<a class="dropdown-item link-action" href="barang-update.php?id=<?php echo $row['id_barang']; ?>"><i class="dw dw-edit-1"></i> Edit</a> | 
-										<a class="dropdown-item link-action" href="barang-delete.php?id=<?php echo $row['id_barang']; ?>"><i class="dw dw-delete-3"></i> Delete</a>
+										<?php if ($_SESSION['jabatan'] == 'sekretaris'): ?>
+											<!-- <a class="dropdown-item link-action" href="barang-detail.php?id=<?php echo $row['id_barang']; ?>"><i class="dw dw-eye"></i> Detail</a> |  -->
+											<a class="dropdown-item link-action" href="barang-update.php?id=<?php echo $row['id_barang']; ?>"><i class="dw dw-edit-1"></i> Edit</a> | 
+											<a class="dropdown-item link-action" href="barang-delete.php?id=<?php echo $row['id_barang']; ?>"><i class="dw dw-delete-3"></i> Delete</a>
+										<?php else: ?>
+											<a class="dropdown-item link-action" href="barang-pinjam.php?id=<?php echo $row['id_barang']; ?>&&sisa_barang=<?php echo $row['sisa_barang']; ?>"><i class="dw dw-shopping-cart2"></i> Pinjam</a>
+										<?php endif; ?>
 									</td>
 								</tr>
                                 <?php endwhile; ?>
@@ -116,7 +134,14 @@
 									<div class="form-group row">
 										<label class="col-sm-4 col-form-label">Kategori<span style="color:red;">*</span></label>
 										<div class="col-sm-8">
-											<input type="text" class="form-control" name="kategori" required>
+											<select class="custom-select col-12" name="kategori">
+												<option selected disabled>Pilih...</option>
+												<option value="Perabotan">Perabotan</option>
+												<option value="Elektronik">Elektronik</option>
+												<option value="Alat Makan">Alat Makan</option>
+												<option value="Alat Masak">Alat Masak</option>
+												<option value="ATK">ATK</option>
+											</select>
 										</div>
 									</div>
 									<div class="form-group row">

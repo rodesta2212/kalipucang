@@ -20,12 +20,17 @@
 						<!-- Sekretaris -->
 						<li>
 							<a href="kepala-keluarga.php" class="dropdown-toggle no-arrow">
-								<span class="micon dw dw-pencil"></span><span class="mtext">Kepala Keluarga</span>
+								<span class="micon dw dw-user1"></span><span class="mtext">Kepala Keluarga</span>
 							</a>
 						</li>
 						<li>
 							<a href="barang.php" class="dropdown-toggle no-arrow">
-								<span class="micon dw dw-pencil"></span><span class="mtext">Barang</span>
+								<span class="micon dw dw-box"></span><span class="mtext">Barang</span>
+							</a>
+						</li>
+						<li>
+							<a href="peminjaman.php" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-invoice-1"></span><span class="mtext">Peminjaman</span>
 							</a>
 						</li>
 					<?php elseif ($_SESSION['jabatan'] == 'ketua'): ?>
@@ -38,8 +43,13 @@
 					<?php else: ?>
 						<!-- Kepala Keluarga -->
 						<li>
-							<a href="#" class="dropdown-toggle no-arrow">
-								<span class="micon dw dw-pencil"></span><span class="mtext">Barang</span>
+							<a href="barang.php" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-box"></span><span class="mtext">Barang</span>
+							</a>
+						</li>
+						<li>
+							<a href="peminjaman-user.php?id=<?php echo $_SESSION['id_user']; ?>" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-invoice-1"></span><span class="mtext">Peminjaman</span>
 							</a>
 						</li>
 					<?php endif; ?>

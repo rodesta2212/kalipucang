@@ -4,12 +4,16 @@
 <?php
     include("config.php");
 	include_once('includes/barang.inc.php');
+	include_once('includes/transaksi.inc.php');
 
 	session_start();
 	if (!isset($_SESSION['id_user'])) echo "<script>location.href='login.php'</script>";
     $config = new Config(); $db = $config->getConnection();
 
 	$id = isset($_GET['id']) ? $_GET['id'] : die('ERROR: missing ID.');
+	$sisa_barang = isset($_GET['sisa_barang']) ? $_GET['sisa_barang'] : die('ERROR: missing sisa barang.');
+
+	$Transaksi = new Transaksi($db);
 
 	$Barang = new Barang($db);
 	$Barang->id_barang = $id;
@@ -34,14 +38,17 @@
 
     <?php
 		if($_POST){
-			// post barang
-			$Barang->id_barang = $_POST["id_barang"];
-			$Barang->nama_barang = $_POST["nama_barang"];
-            $Barang->kategori = $_POST["kategori"];
-            $Barang->stok_barang = $_POST["stok_barang"];
-			$Barang->tahun_input = $_POST["tahun_input"];
+			// post transaksi from user
+			$Transaksi->id_transaksi = $_POST["id_transaksi"];
+			$Transaksi->id_barang = $_POST["id_barang"];
+			$Transaksi->id_user = $_POST["id_user"];
+			$Transaksi->jumlah_pinjam = $_POST["jumlah_pinjam"];
+			$Transaksi->tgl_pinjam = $_POST["tgl_pinjam"];
+			$Transaksi->jadwal_kembali = $_POST["jadwal_kembali"];
+			$Transaksi->keterangan = $_POST["keterangan"];
+			$Transaksi->status = $_POST["status"];
 
-			if ($Barang->update()) {
+			if ($Transaksi->insert()) {
 				echo '<script language="javascript">';
                 echo 'alert("Data Berhasil Terkirim")';
 				echo '</script>';
@@ -60,12 +67,17 @@
 				<!-- Simple Datatable start -->
 				<div class="card-box mb-30">
 					<div class="pd-20">
-						<h4 class="text-blue h4"><i class="dw dw-edit-file"></i> Update Barang</h4>
+						<h4 class="text-blue h4"><i class="dw dw-edit-file"></i> Peminjaman Barang</h4>
 						<!-- <p class="mb-0">you can find more options <a class="text-primary" href="https://datatables.net/" target="_blank">Click Here</a></p> -->
                     </div>
 					<form method="POST" enctype="multipart/form-data">
-					<!-- hidden -->
-					<input type="hidden" name="id_barang" value="<?php echo $Barang->id_barang; ?>">
+					<!-- hidden form -->
+					<input type="hidden" name="id_transaksi" value="<?php echo $Transaksi->getNewId(); ?>">
+					<input type="hidden" name="id_barang" value="<?php echo $id; ?>">
+					<input type="hidden" name="id_user" value="<?php echo $_SESSION['id_user']; ?>">
+					<input type="hidden" name="tgl_pinjam" value="<?php echo date('Y-m-d'); ?>">
+					<input type="hidden" name="status" value="Dipinjam">
+					<!-- hidden form -->
 					<div style="padding-right:15px;">
                         <!-- <a href="ujian-create"> -->
                             <button type="submit" class="btn btn-success float-right">Simpan</button>
@@ -75,25 +87,23 @@
 					<div class="pd-20 mb-30">
 						<div class="form-group">
 							<label>Nama Barang</label>
-							<input type="text" class="form-control" name="nama_barang" value="<?php echo $Barang->nama_barang; ?>">
+							<input type="text" class="form-control" value="<?php echo $Barang->nama_barang; ?>" readonly>
 						</div>
 						<div class="form-group">
 							<label>Kategori</label>
-							<select class="selectpicker form-control form-control-lg" data-style="btn-outline-secondary btn-lg" title="Not Chosen" name="kategori" required>
-								<option value="Perabotan" <?php if($Barang->kategori == 'Perabotan'): ?> selected <?php endif; ?>>Perabotan</option>
-								<option value="Elektronik" <?php if($Barang->kategori == 'Elektronik'): ?> selected <?php endif; ?>>Elektronik</option>
-								<option value="Alat Makan" <?php if($Barang->kategori == 'Alat Makan'): ?> selected <?php endif; ?>>Alat Makan</option>
-								<option value="Alat Masak" <?php if($Barang->kategori == 'Alat Masak'): ?> selected <?php endif; ?>>Alat Masak</option>
-								<option value="ATK" <?php if($Barang->kategori == 'ATK'): ?> selected <?php endif; ?>>ATK</option>
-							</select>
+							<input type="text" class="form-control" value="<?php echo $Barang->kategori; ?>" readonly>
 						</div>
 						<div class="form-group">
-							<label>Stok Barang</label>
-							<input type="number" class="form-control" name="stok_barang" min="0" value="<?php echo $Barang->stok_barang; ?>">
+							<label>Jumlah Pinjam <span style="color: red;">*maximal <?php echo $sisa_barang; ?></span></label>
+							<input type="number" class="form-control" name="jumlah_pinjam" min="0" max="<?php echo $sisa_barang; ?>" required>
 						</div>
 						<div class="form-group">
-							<label>Tahun Input</label>
-							<input type="number" class="form-control" name="tahun_input" min="0" value="<?php echo $Barang->tahun_input; ?>">
+							<label>Tanggal Kembali</label>
+							<input type="date" class="form-control" name="jadwal_kembali" required>
+						</div>
+						<div class="form-group">
+							<label>Keterangan</label>
+							<input type="text" class="form-control" name="keterangan" required>
 						</div>
 					</div>
 					</form>
