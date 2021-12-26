@@ -27,7 +27,8 @@
 		<div class="container-fluid d-flex justify-content-between align-items-center">
 			<div class="brand-logo">
 				<a href="login.html">
-					<img src="vendors/images/deskapp-logo.svg" alt="">
+					<!-- <img src="vendors/images/deskapp-logo.svg" alt=""> -->
+					<h4>Inventaris Desa Kalipucang</h4>
 				</a>
 			</div>
 			<!-- <div class="login-menu">
@@ -46,7 +47,7 @@
 				<div class="col-md-6 col-lg-5">
 					<div class="login-box bg-white box-shadow border-radius-10">
 						<div class="login-title">
-							<h2 class="text-center text-primary">Login To DeskApp</h2>
+							<h2 class="text-center text-primary">Login</h2>
 						</div>
 						<form action="" method="post">
 							<!-- <div class="select-role">
@@ -97,7 +98,7 @@
 										
 										<!-- <a class="btn btn-primary btn-lg btn-block" href="index.html">Sign In</a> -->
 									</div>
-									<div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">OR</div>
+									<!-- <div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">OR</div> -->
 									<!-- <div class="input-group mb-0">
 										<a class="btn btn-outline-primary btn-lg btn-block" href="register.php">Register To Create Account</a>
 									</div> -->

@@ -69,15 +69,13 @@
 							<thead>
 								<tr class="text-center">
 									<th>Nama Barang</th>
-									<?php if ($_SESSION['jabatan'] == 'sekretaris'): ?>
-										<th>Stok Barang</th>
-									<?php endif; ?>
                                     <th>Kategori</th>
 									<?php if ($_SESSION['jabatan'] == 'sekretaris'): ?>
 										<th>Tahun Input</th>
 									<?php endif; ?>
+									<th>Stok Barang</th>
 									<th>Barang Dipinjam</th>
-									<th>Sisa Barang</th>
+									<th>Barang Tersedia</th>
 									<th>Action</th>
 								</tr>
 							</thead>
@@ -85,13 +83,11 @@
                                 <?php $no=1; $barangs = $Barang->readAllReady(); while ($row = $barangs->fetch(PDO::FETCH_ASSOC)) : ?>
 								<tr class="text-center">
 									<td><?=$row['nama_barang']?></td>
-									<?php if ($_SESSION['jabatan'] == 'sekretaris'): ?>
-										<td><?=$row['stok_barang']?></td>
-									<?php endif; ?>
                                     <td><?=$row['kategori']?></td>
 									<?php if ($_SESSION['jabatan'] == 'sekretaris'): ?>
 										<td><?=$row['tahun_input']?></td>
 									<?php endif; ?>
+									<td><?=$row['stok_barang']?></td>
 									<td><?=$row['total_pinjam']?></td>
 									<td><?=$row['sisa_barang']?></td>
 									<td>
@@ -100,7 +96,9 @@
 											<a class="dropdown-item link-action" href="barang-update.php?id=<?php echo $row['id_barang']; ?>"><i class="dw dw-edit-1"></i> Edit</a> | 
 											<a class="dropdown-item link-action" href="barang-delete.php?id=<?php echo $row['id_barang']; ?>"><i class="dw dw-delete-3"></i> Delete</a>
 										<?php else: ?>
-											<a class="dropdown-item link-action" href="barang-pinjam.php?id=<?php echo $row['id_barang']; ?>&&sisa_barang=<?php echo $row['sisa_barang']; ?>"><i class="dw dw-shopping-cart2"></i> Pinjam</a>
+											<?php if ($row['sisa_barang'] > 0): ?>
+												<a class="dropdown-item link-action" href="barang-pinjam.php?id=<?php echo $row['id_barang']; ?>&&sisa_barang=<?php echo $row['sisa_barang']; ?>"><i class="dw dw-shopping-cart2"></i> Pinjam</a>
+											<?php endif; ?>
 										<?php endif; ?>
 									</td>
 								</tr>
