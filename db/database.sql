@@ -2,7 +2,7 @@
 MySQL Backup
 Source Server Version: 5.1.31
 Source Database: ryan
-Date: 26/12/2021 17:14:52
+Date: 30/12/2021 20:30:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -69,5 +69,5 @@ CREATE TABLE `user` (
 -- ----------------------------
 INSERT INTO `barang` VALUES ('1','Kursi Plastik','Perabotan','100','2015'), ('2','Sound System','Elektronik','1','2018');
 INSERT INTO `kepala_keluarga` VALUES ('1','3','3402160312140005','bantul','8215433659','deni_samuri@gmail.com'), ('2','4','3402161811190003','Bantul','85642136597','rohmat_isnawan@gmail.com'), ('3','5','3402161208060013','Bantul','85425632156','joko@gmail.com');
-INSERT INTO `transaksi` VALUES ('1','1','3','10','2021-12-25','2021-12-31',NULL,'buat pernikahan','Dipinjam'), ('2','1','4','50','2021-12-25','2022-01-08',NULL,'acara hajatan','Dipinjam'), ('3','2','3','1','2021-12-26','2021-12-31',NULL,'nikahan','Dipinjam');
+INSERT INTO `transaksi` VALUES ('1','1','3','10','2021-12-25','2021-12-31',NULL,'buat pernikahan','Dipinjam'), ('2','1','4','50','2021-12-25','2022-01-08',NULL,'acara hajatan','Dipinjam'), ('3','2','3','1','2021-12-26','2021-12-31','2021-12-30','nikahan','Selesai'), ('4','1','3','20','2021-12-26','2021-12-31','2021-12-30','manten','Selesai');
 INSERT INTO `user` VALUES ('1','sekretaris','sekretaris','sekretaris','Sekretaris RT'), ('2','ketua','ketua','ketua_rt','Ketua RT'), ('3','deni','deni','kepala_keluarga','Deni Samuri'), ('4','rohmat','rohmat','kepala_keluarga','Rohmat Isnawan'), ('5','joko','joko','kepala_keluarga','Joko');

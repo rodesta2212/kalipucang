@@ -33,11 +33,16 @@
 								<span class="micon dw dw-invoice-1"></span><span class="mtext">Peminjaman</span>
 							</a>
 						</li>
-					<?php elseif ($_SESSION['jabatan'] == 'ketua'): ?>
+					<?php elseif ($_SESSION['jabatan'] == 'ketua_rt'): ?>
 						<!-- Ketua RT -->
 						<li>
-							<a href="#" class="dropdown-toggle no-arrow">
-								<span class="micon dw dw-analytics-11"></span><span class="mtext">Laporan</span>
+							<a href="barang-export.php" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-box"></span><span class="mtext">Laporan Barang</span>
+							</a>
+						</li>
+						<li>
+							<a href="peminjaman.php" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-invoice-1"></span><span class="mtext">Laporan Peminjaman</span>
 							</a>
 						</li>
 					<?php else: ?>

@@ -72,6 +72,20 @@ class Transaksi {
 		return $stmt;
 	}
 
+	function readAllSearch() {
+		$query = "SELECT A.id_transaksi, A.id_barang, B.nama_barang, B.kategori, A.id_user, C.nama AS nama_user, A.jumlah_pinjam, A.tgl_pinjam, A.jadwal_kembali, A.tgl_kembali, A.keterangan, A.status FROM {$this->table_transaksi} A LEFT JOIN {$this->table_barang} B ON B.id_barang=A.id_barang LEFT JOIN {$this->table_user} C ON C.id_user=A.id_user 
+			WHERE tgl_pinjam BETWEEN :tanggal_awal AND :tanggal_akhir 
+			OR tgl_kembali BETWEEN :tanggal_awal AND :tanggal_akhir
+			OR jadwal_kembali BETWEEN :tanggal_awal AND :tanggal_akhir 
+			ORDER BY tgl_pinjam DESC";
+		$stmt = $this->conn->prepare( $query );
+		$stmt->bindParam(':tanggal_awal', $this->tanggal_awal);
+		$stmt->bindParam(':tanggal_akhir', $this->tanggal_akhir);
+		$stmt->execute();
+
+		return $stmt;
+	}
+
 	function readAllUser() {
 		$query = "SELECT A.id_transaksi, A.id_barang, B.nama_barang, B.kategori, A.id_user, C.nama AS nama_user, A.jumlah_pinjam, A.tgl_pinjam, A.jadwal_kembali, A.tgl_kembali, A.keterangan, A.status 
 		FROM {$this->table_transaksi} A 
@@ -129,6 +143,23 @@ class Transaksi {
 		$stmt->bindParam(':keterangan', $this->keterangan);
 		$stmt->bindParam(':status', $this->status);
         $stmt->bindParam(':id', $this->id_transaksi);
+
+		if ($stmt->execute()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	function updateUser() {
+		$query = "UPDATE {$this->table_transaksi} 
+			SET 
+				tgl_kembali = CURDATE(), 
+				status = 'Selesai' 
+			WHERE id_transaksi = :id";
+
+		$stmt = $this->conn->prepare($query);
+		$stmt->bindParam(':id', $this->id_transaksi);
 
 		if ($stmt->execute()) {
 			return true;

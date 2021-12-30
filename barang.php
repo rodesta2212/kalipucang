@@ -60,7 +60,8 @@
 					<?php if ($_SESSION['jabatan'] == 'sekretaris'): ?>
                     <div style="padding-right:15px;">
                         <!-- <a href="barang-create"> -->
-                            <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#createModal">Tambah</button>
+                            <a href="barang-export.php" class="btn btn-primary float-right" style="margin-left:10px;" >Export</a>
+							<button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#createModal">Tambah</button>
                         <!-- </a> -->
                     </div>
 					<?php endif; ?>
