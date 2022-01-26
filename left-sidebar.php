@@ -33,6 +33,11 @@
 								<span class="micon dw dw-invoice-1"></span><span class="mtext">Peminjaman</span>
 							</a>
 						</li>
+						<li>
+							<a href="peminjaman-jadwal.php" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-calendar-1"></span><span class="mtext">Jadwal</span>
+							</a>
+						</li>
 					<?php elseif ($_SESSION['jabatan'] == 'ketua_rt'): ?>
 						<!-- Ketua RT -->
 						<li>

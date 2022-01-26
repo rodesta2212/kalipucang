@@ -44,6 +44,7 @@
 			$Transaksi->id_user = $_POST["id_user"];
 			$Transaksi->jumlah_pinjam = $_POST["jumlah_pinjam"];
 			$Transaksi->tgl_pinjam = $_POST["tgl_pinjam"];
+			$Transaksi->jadwal_pinjam = $_POST["jadwal_pinjam"];
 			$Transaksi->jadwal_kembali = $_POST["jadwal_kembali"];
 			$Transaksi->keterangan = $_POST["keterangan"];
 			$Transaksi->status = $_POST["status"];
@@ -76,7 +77,8 @@
 					<input type="hidden" name="id_barang" value="<?php echo $id; ?>">
 					<input type="hidden" name="id_user" value="<?php echo $_SESSION['id_user']; ?>">
 					<input type="hidden" name="tgl_pinjam" value="<?php echo date('Y-m-d'); ?>">
-					<input type="hidden" name="status" value="Dipinjam">
+					<input type="hidden" name="jadwal_pinjam" value="<?php echo date('Y-m-d', strtotime('+1 day')); ?>">
+					<input type="hidden" name="status" value="Konfirmasi Peminjaman">
 					<!-- hidden form -->
 					<div style="padding-right:15px;">
                         <!-- <a href="ujian-create"> -->
