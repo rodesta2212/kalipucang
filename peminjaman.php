@@ -66,8 +66,9 @@
                                     <th>Kategori</th>
 									<th>Jumlah</th>
 									<th>Tanggal Pinjam</th>
-									<th>Jadwal Kembali</th>
 									<th>Tanggal Kembali</th>
+									<th>Kerusakan</th>
+									<th>Catatan</th>
 									<th>Status</th>
 								</tr>
 							</thead>
@@ -79,7 +80,6 @@
                                     <td><?=$row['kategori']?></td>
 									<td><?=$row['jumlah_pinjam']?></td>
 									<td><?=$row['tgl_pinjam']?></td>
-									<td><?=$row['jadwal_kembali']?></td>
 									<td>
 										<?php if ($row['tgl_kembali'] != null): ?>
 											<?=$row['tgl_kembali']?>
@@ -87,6 +87,8 @@
 											-
 										<?php endif; ?>
 									</td>
+									<td><?=$row['kerusakan']?></td>
+									<td><?=$row['catatan']?></td>
 									<td><?=$row['status']?></td>
 								</tr>
                                 <?php endwhile; ?>

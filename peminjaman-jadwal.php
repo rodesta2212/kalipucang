@@ -59,6 +59,7 @@
                                     <th>Kategori</th>
 									<th>Jumlah</th>
 									<th>Tanggal</th>
+									<th>Keterangan</th>
 									<th>Status</th>
 								</tr>
 							</thead>
@@ -76,6 +77,7 @@
 											<?=$row['jadwal_kembali']?>
 										<?php endif; ?>
 									</td>
+									<td><?=$row['keterangan']?></td>
 									<td>
 										<?php if ($row['status'] == 'Konfirmasi Peminjaman'): ?>
 											<a class="dropdown-item link-action" href="peminjaman-konfirmasi-pinjam.php?id=<?php echo $row['id_transaksi']; ?>"><i class="dw dw-checked"></i> <?=$row['status']?></a>
