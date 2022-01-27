@@ -67,6 +67,7 @@
 									<th>Jumlah</th>
 									<th>Tanggal Pinjam</th>
 									<th>Tanggal Kembali</th>
+									<th>Keterangan</th>
 									<th>Kerusakan</th>
 									<th>Catatan</th>
 									<th>Status</th>
@@ -87,6 +88,7 @@
 											-
 										<?php endif; ?>
 									</td>
+									<td><?=$row['keterangan']?></td>
 									<td><?=$row['kerusakan']?></td>
 									<td><?=$row['catatan']?></td>
 									<td><?=$row['status']?></td>
