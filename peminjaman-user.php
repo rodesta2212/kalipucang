@@ -65,15 +65,9 @@
                                     <td><?=$row['kategori']?></td>
 									<td><?=$row['jumlah_pinjam']?></td>
 									<td><?=$row['tgl_pinjam']?></td>
+									<td><?=$row['jadwal_kembali']?></td>
 									<td>
-										<?php if ($row['jadwal_kembali'] != null || $row['jadwal_kembali'] != '0000-00-00'): ?>
-											<?=$row['jadwal_kembali']?>
-										<?php else: ?>
-											-
-										<?php endif; ?>
-									</td>
-									<td>
-										<?php if ($row['tgl_kembali'] != null || $row['tgl_kembali'] != '0000-00-00'): ?>
+										<?php if ($row['tgl_kembali'] != null): ?>
 											<?=$row['tgl_kembali']?>
 										<?php else: ?>
 											Belum Kembali
