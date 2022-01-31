@@ -82,7 +82,7 @@
 									<td><?=$row['jumlah_pinjam']?></td>
 									<td><?=$row['tgl_pinjam']?></td>
 									<td>
-										<?php if ($row['tgl_kembali'] != null): ?>
+										<?php if ($row['tgl_kembali'] != null || $row['tgl_kembali'] != '0000-00-00'): ?>
 											<?=$row['tgl_kembali']?>
 										<?php else: ?>
 											-
