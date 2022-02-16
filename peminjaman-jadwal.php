@@ -82,7 +82,7 @@
 										<?php if ($row['status'] == 'Konfirmasi Peminjaman'): ?>
 											<a class="dropdown-item link-action" href="peminjaman-konfirmasi-pinjam.php?id=<?php echo $row['id_transaksi']; ?>"><i class="dw dw-checked"></i> <?=$row['status']?></a>
 										<?php else: ?>
-											<a class="dropdown-item link-action" href="peminjaman-konfirmasi-kembali.php?id=<?php echo $row['id_transaksi']; ?>"><i class="dw dw-checked"></i> <?=$row['status']?></a>
+											<a class="dropdown-item link-action" href="peminjaman-konfirmasi-kembali.php?id=<?php echo $row['id_transaksi']; ?>&&id_barang=<?php echo $row['id_barang']; ?>"><i class="dw dw-checked"></i> <?=$row['status']?></a>
 										<?php endif; ?>
 									</td>
 								</tr>

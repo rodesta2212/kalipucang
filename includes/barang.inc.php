@@ -110,6 +110,26 @@ class Barang {
 			return false;
 		}
 	}
+
+	function updateStok() {
+		$query = "UPDATE {$this->table_barang}
+			SET
+                id_barang = :id_barang,
+				stok_barang = :stok_barang
+			WHERE
+				id_barang = :id_barang";
+        $stmt = $this->conn->prepare($query);
+
+		$stmt->bindParam(':id_barang', $this->id_barang);
+        $stmt->bindParam(':stok_barang', $this->stok_barang);
+        $stmt->bindParam(':id_barang', $this->id_barang);
+
+		if ($stmt->execute()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	function delete() {
 		$query = "DELETE FROM {$this->table_barang} WHERE id_barang = ?";

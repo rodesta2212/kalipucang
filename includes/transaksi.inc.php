@@ -112,7 +112,7 @@ class Transaksi {
 	}
 
 	function readOne() {
-		$query = "SELECT A.id_transaksi, A.id_barang, B.nama_barang, B.kategori, A.id_user, C.nama AS nama_user, A.jumlah_pinjam, A.tgl_pinjam, A.jadwal_pinjam, A.jadwal_kembali, A.tgl_kembali, A.keterangan, A.status, A.kerusakan, A.catatan FROM {$this->table_transaksi} A LEFT JOIN {$this->table_barang} B ON B.id_barang=A.id_barang LEFT JOIN {$this->table_user} C ON C.id_user=A.id_user WHERE id_transaksi=:id_transaksi LIMIT 0,1";
+		$query = "SELECT A.id_transaksi, A.id_barang, B.nama_barang, B.stok_barang, B.kategori, A.id_user, C.nama AS nama_user, A.jumlah_pinjam, A.tgl_pinjam, A.jadwal_pinjam, A.jadwal_kembali, A.tgl_kembali, A.keterangan, A.status, A.kerusakan, A.catatan FROM {$this->table_transaksi} A LEFT JOIN {$this->table_barang} B ON B.id_barang=A.id_barang LEFT JOIN {$this->table_user} C ON C.id_user=A.id_user WHERE id_transaksi=:id_transaksi LIMIT 0,1";
 		$stmt = $this->conn->prepare($query);
 		$stmt->bindParam(':id_transaksi', $this->id_transaksi);
 		$stmt->execute();
@@ -121,6 +121,7 @@ class Transaksi {
 		$this->id_transaksi = $row['id_transaksi'];
         $this->id_barang = $row['id_barang'];
 		$this->nama_barang = $row['nama_barang'];
+		$this->stok_barang = $row['stok_barang'];
 		$this->kategori = $row['kategori'];
         $this->id_user = $row['id_user'];
         $this->jumlah_pinjam = $row['jumlah_pinjam'];

@@ -4,16 +4,21 @@
 <?php
     include("config.php");
 	include_once('includes/transaksi.inc.php');
+	include_once('includes/barang.inc.php');
 
 	session_start();
 	if (!isset($_SESSION['id_user'])) echo "<script>location.href='login.php'</script>";
     $config = new Config(); $db = $config->getConnection();
 
 	$id = isset($_GET['id']) ? $_GET['id'] : die('ERROR: missing ID.');
+	$id_barang = isset($_GET['id_barang']) ? $_GET['id_barang'] : die('ERROR: missing ID Barang.');
 
 	$Transaksi = new Transaksi($db);
 	$Transaksi->id_transaksi = $id;
 	$Transaksi->readOne();
+
+	$Barang = new Barang($db);
+	$Barang->id_barang = $id_barang;
 
 ?>
 
@@ -47,17 +52,36 @@
             $Transaksi->status = $_POST["status"];
             $Transaksi->kerusakan = $_POST["kerusakan"];
             $Transaksi->catatan = $_POST["catatan"];
+			$Transaksi->stok_barang = $_POST["stok_barang"];
 
-			if ($Transaksi->update()) {
-				echo '<script language="javascript">';
-                echo 'alert("Data Berhasil Terkirim")';
-				echo '</script>';
-				echo "<script>location.href='peminjaman-jadwal.php'</script>";
-			} else {
-				echo '<script language="javascript">';
-                echo 'alert("Data Gagal Terkirim")';
-                echo '</script>';
+			if ($_POST["kerusakan"] != 0) {
+				$Barang->stok_barang = $_POST["stok_barang"]-$_POST["kerusakan"];
 			}
+
+			if ($_POST["kerusakan"] == 0) {
+				if ($Transaksi->update()) {
+					echo '<script language="javascript">';
+					echo 'alert("Data Berhasil Terkirim")';
+					echo '</script>';
+					echo "<script>location.href='peminjaman-jadwal.php'</script>";
+				} else {
+					echo '<script language="javascript">';
+					echo 'alert("Data Gagal Terkirim")';
+					echo '</script>';
+				}
+			} else {
+				if ($Transaksi->update() && $Barang->updateStok()) {
+					echo '<script language="javascript">';
+					echo 'alert("Data Berhasil Terkirim")';
+					echo '</script>';
+					echo "<script>location.href='peminjaman-jadwal.php'</script>";
+				} else {
+					echo '<script language="javascript">';
+					echo 'alert("Data Gagal Terkirim")';
+					echo '</script>';
+				}
+			}
+			
 		}
 	?>
 
@@ -80,6 +104,7 @@
                     <input type="hidden" name="jadwal_kembali" value="<?php echo $Transaksi->jadwal_kembali; ?>">
                     <input type="hidden" name="tgl_kembali" value="<?php echo date('Y-m-d'); ?>">
                     <input type="hidden" name="keterangan" value="<?php echo $Transaksi->keterangan; ?>">
+					<input type="hidden" name="stok_barang" value="<?php echo $Transaksi->stok_barang; ?>">
                     <input type="hidden" name="status" value="Selesai">
 					<div style="padding-right:15px;">
                         <!-- <a href="ujian-create"> -->
