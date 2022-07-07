@@ -19,3 +19,22 @@
 
 <!-- Datatable Setting js -->
 <script src="vendors/scripts/datatable-setting.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('body').delegate('.add-barang', 'click', function (e) {
+                e.preventDefault();
+                
+                let copy = $('#form-add-barang').html();
+
+                $('#card-barang').append(copy);
+            });
+    });
+    function incrementValue()
+{
+    var value = parseInt(document.getElementById('number').value, 10);
+    value = isNaN(value) ? 0 : value;
+    value++;
+    document.getElementById('number').value = value;
+}
+</script>

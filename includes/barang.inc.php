@@ -64,7 +64,15 @@ class Barang {
 	}
 
 	function readAllReady() {
-		$query = "SELECT A.id_barang, A.nama_barang, A.kategori, A.stok_barang, A.tahun_input, IF(B.total_pinjam>0, B.total_pinjam, 0) AS total_pinjam, (stok_barang-IF(B.total_pinjam>0, B.total_pinjam, 0)) AS sisa_barang FROM {$this->table_barang} A LEFT JOIN ( SELECT id_transaksi, id_barang, SUM(jumlah_pinjam) AS total_pinjam FROM {$this->table_transaksi} WHERE status != 'Selesai' GROUP BY id_barang ) B ON A.id_barang=B.id_barang";
+		$query = "SELECT A.id_barang, A.nama_barang, A.kategori, A.stok_barang, 
+		A.tahun_input, IF(B.total_pinjam>0, B.total_pinjam, 0) AS total_pinjam, 
+		(stok_barang-IF(B.total_pinjam>0, B.total_pinjam, 0)) AS sisa_barang 
+		FROM {$this->table_barang} A 
+		LEFT JOIN ( SELECT id_transaksi, id_barang, 
+		SUM(jumlah_pinjam) AS total_pinjam 
+		FROM {$this->table_transaksi} 
+		WHERE status != 'Selesai' AND status != 'Konfirmasi Peminjaman'
+		GROUP BY id_barang ) B ON A.id_barang=B.id_barang";
 		$stmt = $this->conn->prepare( $query );
 		$stmt->execute();
 

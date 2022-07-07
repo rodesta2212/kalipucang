@@ -58,12 +58,16 @@
 						<!-- <p class="mb-0">you can find more options <a class="text-primary" href="https://datatables.net/" target="_blank">Click Here</a></p> -->
                     </div>
 					<?php if ($_SESSION['jabatan'] == 'sekretaris'): ?>
-                    <div style="padding-right:15px;">
-                        <!-- <a href="barang-create"> -->
-                            <a href="barang-export.php" class="btn btn-primary float-right" style="margin-left:10px;" >Export</a>
-							<button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#createModal">Tambah</button>
-                        <!-- </a> -->
-                    </div>
+						<div style="padding-right:15px;">
+							<!-- <a href="barang-create"> -->
+								<a href="barang-export.php" class="btn btn-primary float-right" style="margin-left:10px;" >Export</a>
+								<button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#createModal">Tambah</button>
+							<!-- </a> -->
+						</div>
+					<?php elseif ($_SESSION['jabatan'] == 'kepala_keluarga'): ?>
+						<div style="padding-right:15px;">
+							<a href="barang-peminjaman.php" class="btn btn-success float-right" style="margin-left:10px;" >Peminjaman</a>
+						</div>
 					<?php endif; ?>
                     <div class="pb-20">
 						<table class="data-table table stripe hover nowrap">
@@ -77,7 +81,10 @@
 									<th>Stok Barang</th>
 									<th>Barang Dipinjam</th>
 									<th>Barang Tersedia</th>
-									<th>Action</th>
+									<?php if ($_SESSION['jabatan'] == 'sekretaris'): ?>
+										<th>Action</th>
+									<?php endif; ?>
+									
 								</tr>
 							</thead>
 							<tbody>
@@ -91,17 +98,19 @@
 									<td><?=$row['stok_barang']?></td>
 									<td><?=$row['total_pinjam']?></td>
 									<td><?=$row['sisa_barang']?></td>
-									<td>
-										<?php if ($_SESSION['jabatan'] == 'sekretaris'): ?>
-											<!-- <a class="dropdown-item link-action" href="barang-detail.php?id=<?php echo $row['id_barang']; ?>"><i class="dw dw-eye"></i> Detail</a> |  -->
-											<a class="dropdown-item link-action" href="barang-update.php?id=<?php echo $row['id_barang']; ?>"><i class="dw dw-edit-1"></i> Edit</a> | 
-											<a class="dropdown-item link-action" href="barang-delete.php?id=<?php echo $row['id_barang']; ?>"><i class="dw dw-delete-3"></i> Delete</a>
-										<?php else: ?>
-											<?php if ($row['sisa_barang'] > 0): ?>
-												<a class="dropdown-item link-action" href="barang-pinjam.php?id=<?php echo $row['id_barang']; ?>&&sisa_barang=<?php echo $row['sisa_barang']; ?>"><i class="dw dw-shopping-cart2"></i> Pinjam</a>
+									<?php if ($_SESSION['jabatan'] == 'sekretaris'): ?>
+										<td>
+											<?php if ($_SESSION['jabatan'] == 'sekretaris'): ?>
+												<!-- <a class="dropdown-item link-action" href="barang-detail.php?id=<?php echo $row['id_barang']; ?>"><i class="dw dw-eye"></i> Detail</a> |  -->
+												<a class="dropdown-item link-action" href="barang-update.php?id=<?php echo $row['id_barang']; ?>"><i class="dw dw-edit-1"></i> Edit</a> | 
+												<a class="dropdown-item link-action" href="barang-delete.php?id=<?php echo $row['id_barang']; ?>"><i class="dw dw-delete-3"></i> Delete</a>
+											<?php else: ?>
+												<?php if ($row['sisa_barang'] > 0): ?>
+													<a class="dropdown-item link-action" href="barang-pinjam.php?id=<?php echo $row['id_barang']; ?>&&sisa_barang=<?php echo $row['sisa_barang']; ?>"><i class="dw dw-shopping-cart2"></i> Pinjam</a>
+												<?php endif; ?>
 											<?php endif; ?>
-										<?php endif; ?>
-									</td>
+										</td>
+									<?php endif; ?>
 								</tr>
                                 <?php endwhile; ?>
 							</tbody>
