@@ -33,7 +33,7 @@
     <?php
 		if($_POST){
 			$incrementValue = $_POST["incrementValue"];
-			for ($i=0; $i < $incrementValue; $i++) { 
+			for ($i=0; $i <= $incrementValue; $i++) { 
 				// post transaksi from user
 				$Transaksi->id_transaksi = $Transaksi->getNewId();
 				$Transaksi->id_barang = $_POST["id_barang"][$i];
@@ -45,7 +45,7 @@
 				$Transaksi->keterangan = $_POST["keterangan"];
 				$Transaksi->status = $_POST["status"];
 
-				if ($i == $incrementValue-1) {
+				if ($i == $incrementValue) {
 					$Transaksi->insert();
 					echo '<script language="javascript">';
 					echo 'alert("Data Berhasil Terkirim")';
